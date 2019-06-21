@@ -17,6 +17,7 @@ const GET_SITE_METADATA = graphql`
          siteMetadata {
             title
             author
+            createdAt
          }
       }
    }
@@ -26,7 +27,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }): JSX.Element =>
    <StaticQuery
       query={GET_SITE_METADATA}
       render={(data: any): JSX.Element => {
-         const { title, author } = data.site.siteMetadata;
+         const { title, author, createdAt } = data.site.siteMetadata;
          return (
             <Fragment>
                <Header siteTitle={title} />
@@ -39,7 +40,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }): JSX.Element =>
                   }}>
                   <main>{children}</main>
                   <footer>
-                     © {new Date().getFullYear()}, Built by {author}
+                     © {createdAt}, Built by {author}
                   </footer>
                </div>
             </Fragment>
