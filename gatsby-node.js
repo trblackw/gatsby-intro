@@ -16,7 +16,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 };
 
 exports.createPages = async ({ graphql, actions }) => {
-   const { data } = await graphql`
+   const { data } = await graphql(`
       {
          allMarkdownRemark {
             edges {
@@ -28,11 +28,11 @@ exports.createPages = async ({ graphql, actions }) => {
             }
          }
       }
-   `;
+   `);
    const posts = data.allMarkdownRemark.edges;
    posts.forEach(({ node: post }) =>
       actions.createPage({
-         path: `posts${post.field.slug}`,
+         path: `posts${post.fields.slug}`,
          component: PostTemplate,
          context: {
             slug: post.fields.slug
