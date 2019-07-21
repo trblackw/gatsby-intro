@@ -31,15 +31,21 @@ export default (): JSX.Element => (
             render={({ allMarkdownRemark }): JSX.Element => (
                <Fragment>
                   <PostCount>{allMarkdownRemark.totalCount} Posts</PostCount>
-                  {allMarkdownRemark.edges.map(({ node: { frontmatter, id, excerpt } }): JSX.Element => (
-                     <PostContainer key={id}>
-                        <PostTitle>
-                           {frontmatter.title}
-                           <BlogDate>{frontmatter.date}</BlogDate>
-                        </PostTitle>
-                        <Excerpt>{excerpt}</Excerpt>
-                     </PostContainer>
-                  ))}
+                  {allMarkdownRemark.edges.map(
+                     ({
+                        node: { frontmatter, id, excerpt }
+                     }: {
+                        node: { frontmatter: any; id: string | number; excerpt: string };
+                     }): JSX.Element => (
+                        <PostContainer key={id}>
+                           <PostTitle>
+                              {frontmatter.title}
+                              <BlogDate>{frontmatter.date}</BlogDate>
+                           </PostTitle>
+                           <Excerpt>{excerpt}</Excerpt>
+                        </PostContainer>
+                     )
+                  )}
                </Fragment>
             )}
          />
