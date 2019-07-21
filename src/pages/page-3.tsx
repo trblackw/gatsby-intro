@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../components/layout';
+import Layout from '../components/layout';
 import { Link, graphql, StaticQuery } from 'gatsby';
 
 const getImageData = graphql`
