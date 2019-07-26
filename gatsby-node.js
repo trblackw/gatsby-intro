@@ -1,6 +1,7 @@
 const { createFilePath } = require('gatsby-source-filesystem');
 const path = require('path');
 const PostTemplate = path.resolve('./src/templates/post-template.tsx');
+const BlogTemplate = path.resolve('./src/templates/blog-template.tsx');
 
 //programmatically generate slugs for posts & their respective pages
 const MarkdownRemark = 'MarkdownRemark';
@@ -39,4 +40,25 @@ exports.createPages = async ({ graphql, actions }) => {
          }
       })
    );
+
+   posts.forEach((_, i, postsArr) => {
+      const totalPages = postsArr.length,
+      postsPerPage = 1,
+      currentPage = i + 1,
+      isFirstPage = i === 0,
+      isLastPage = i === totalPages;
+
+      actions.createPage({
+         path: isFirstPage ? '/blog' : `/blog${currentPage}`,
+         component: BlogTemplate,
+         context: {
+            limit: postsPerPage,
+            skip: i * postsPerPage,
+            isFirstPage,
+            isLastPage,
+            currentPage,
+            totalPages
+         }
+      })
+   })
 };
