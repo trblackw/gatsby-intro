@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { StaticQuery, graphql } from 'gatsby';
+import { StaticQuery, graphql, Link } from 'gatsby';
 import Layout from '../components/layout';
 import styled from 'styled-components';
 
@@ -9,6 +9,9 @@ const getMarkdownQuery = graphql`
          totalCount
          edges {
             node {
+               fields {
+                  slug
+               }
                id
                frontmatter {
                   title
@@ -33,13 +36,13 @@ export default (): JSX.Element => (
                   <PostCount>{allMarkdownRemark.totalCount} Posts</PostCount>
                   {allMarkdownRemark.edges.map(
                      ({
-                        node: { frontmatter, id, excerpt }
+                        node: { frontmatter, id, excerpt, fields }
                      }: {
-                        node: { frontmatter: any; id: string | number; excerpt: string };
+                        node: { frontmatter: any; id: string | number; excerpt: string; fields: { slug: string } };
                      }): JSX.Element => (
                         <PostContainer key={id}>
                            <PostTitle>
-                              {frontmatter.title}
+                              <StyledLink to={`/posts${fields.slug}`}>{frontmatter.title}</StyledLink>
                               <BlogDate>{frontmatter.date}</BlogDate>
                            </PostTitle>
                            <Excerpt>{excerpt}</Excerpt>
@@ -52,6 +55,15 @@ export default (): JSX.Element => (
       </Container>
    </Layout>
 );
+
+const StyledLink = styled(Link)`
+   text-decoration: none;
+   color: #5D2392;
+
+   &:hover {
+      text-decoration: underline;
+   }
+`
 
 const Container = styled.div``;
 
