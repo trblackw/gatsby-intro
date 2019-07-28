@@ -3,7 +3,7 @@ import { StaticQuery, graphql, Link } from 'gatsby';
 import Layout from '../components/layout';
 import styled from 'styled-components';
 
-const getMarkdownQuery = graphql`
+const getMarkdownPosts = graphql`
    {
       allMarkdownRemark {
          totalCount
@@ -30,7 +30,7 @@ export default (): JSX.Element => (
          <BlogTitle>Gatsby Blog</BlogTitle>
          <hr />
          <StaticQuery
-            query={getMarkdownQuery}
+            query={getMarkdownPosts}
             render={({ allMarkdownRemark }): JSX.Element => (
                <Fragment>
                   <PostCount>{allMarkdownRemark.totalCount} Posts</PostCount>
