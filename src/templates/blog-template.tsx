@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { StaticQuery, graphql, Link } from 'gatsby';
+import React from 'react';
+import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout';
 import styled from 'styled-components';
 
@@ -25,9 +25,11 @@ const getMarkdownPosts = graphql`
 `;
 
 export default ({ data, pageContext }: { data: any; pageContext: any }): JSX.Element => {
+console.log("TCL: data", data)
    const { currentPage, isFirstPage, isLastPage } = pageContext;
+   
    const nextPage = `/blog/${String(currentPage + 1)}`;
-   const prevPage = currentPage - 1 === 1 ? '/blog' : `/blog/${currentPage - 1}`;
+   const prevPage = currentPage - 1 === 1 ? '/blog' : `/blog/${String(currentPage - 1)}`;
    return (
       <Layout>
          <Container>
